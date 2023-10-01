@@ -1,31 +1,42 @@
-função quickSort(vetor, esquerda, direita)
-    se esquerda < direita então
-        pivô <- particionar(vetor, esquerda, direita)
-        quickSort(vetor, esquerda, pivô - 1)
-        quickSort(vetor, pivô + 1, direita)
+programa {
+  inteiro vetor[] = { 12, 4, 5, 6, 7, 3, 1, 15, 2 }
+  inteiro tamanho = 9
 
-função particionar(vetor, esquerda, direita)
-    pivô <- vetor[direita]
-    índiceMenor <- esquerda - 1
+  funcao inicio() {
+    escreva("Vetor original: ", vetor, "\n")
+    ordenar(0, tamanho - 1)
+    escreva("Vetor ordenado: ", vetor, "\n")
+  }
 
-    para i de esquerda até direita - 1 faça
-        se vetor[i] <= pivô então
-            índiceMenor <- índiceMenor + 1
-            trocar(vetor, índiceMenor, i)
+  funcao ordenar(inteiro comeco, inteiro final) {
+    se (comeco < final) {
+      inteiro pivo = particionar(comeco, final)
+      escreva("recurs�o 1 \n")
+      ordenar(comeco, pivo - 1)
+      escreva("recurs�o 1 realizada \n")
+      escreva("recurs�o 2 \n")
+      ordenar(pivo + 1, final)
+      escreva("recurs�o 2 realizada \n")
+    }
+  }
 
-    trocar(vetor, índiceMenor + 1, direita)
-    retornar índiceMenor + 1
+  funcao particionar(inteiro comeco, inteiro final) {
+    inteiro pivo = vetor[final]
+    inteiro indiceMenor = comeco - 1
+    para (inteiro i = comeco; i < final; i++) {
+      se (vetor[i] <= pivo) {
+        indiceMenor += 1
+        trocar(indiceMenor, i)
+      }
+    }
+    trocar(indiceMenor + 1, final)
+    escreva("Vetor atualizado: ", vetor, "\n")
+    retorne indiceMenor + 1
+  }
 
-função trocar(vetor, i, j)
-    temp <- vetor[i]
-    vetor[i] <- vetor[j]
-    vetor[j] <- temp
-
-vetor <- [12, 4, 5, 6, 7, 3, 1, 15, 2]
-tamanho <- tamanho do vetor
-
-escreva("Vetor original:", vetor)
-
-quickSort(vetor, 0, tamanho - 1)
-
-escreva("Vetor ordenado:", vetor)
+  funcao trocar(inteiro menor, inteiro maior) {
+    inteiro temp = vetor[menor]
+    vetor[menor] = vetor[maior]
+    vetor[maior] = temp
+  }
+}
